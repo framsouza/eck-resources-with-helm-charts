@@ -1,0 +1,35 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: {{ template "elasticsearch.uname" . }}
+spec:
+  version: {{ .Values.version }}
+  nodeSets:
+  - name: {{ template "elasticsearch.uname" . }}
+    count: {{ .Values.replicas }}
+    podTemplate:
+      spec:
+      {{- if .Values.sysctlInitContainer.enabled }}
+        initContainers:
+        - name: sysctl
+          securityContext:
+            privileged: true
+          command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+       {{- end }}
+        containers:
+          - name: elasticsearch
+            resources:
+              requests:
+                memory: {{ .Values.memory.requests }}
+              limits:
+                memory: {{ .Values.memory.limits }}
+    volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: {{ .Values.storage.size }}
+            storageClassName: {{ .Values.storage.classname }}

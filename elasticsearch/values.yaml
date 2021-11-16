@@ -1,0 +1,18 @@
+version: 7.15.1
+replicas: 1
+
+clusterName: elasticsearch
+
+memory:
+  requests: 2Gi
+  limits: 2Gi
+
+storage:
+  size: 10Gi
+  classname: standard
+
+sysctlInitContainer:
+  enabled: true
+
+nameOverride: ""
+fullnameOverride: ""

@@ -1,0 +1,2 @@
+1. Watch all cluster members come up.
+  $ kubectl get pods --namespace={{ .Release.Namespace }} | grep {{ template "elasticsearch.uname" . }} 
