@@ -1,0 +1,33 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: {{ template "kibana.name" . }}
+spec:
+  version: {{ .Values.version }}
+  count: {{ .Values.replicas }}
+  {{- if .Values.elasticsearchManagedbyECK.enabled }}
+  elasticsearchRef:
+    name: {{ .Values.elasticsearchName }}
+    namespace: {{ .Values.elasticsearchNamespace }}
+  {{ else }}
+  config:
+    elasticsearch.hosts:
+      - {{ .Values.elasticsearchEndpoint }}
+    elasticsearch.username: elastic
+  secureSettings:
+    - secretName: {{ .Values.kibanaSecretElasticsearchCredentials }}
+  {{- end }}
+  {{- if .Values.ElasticsearchSelfCertificate.enabled }}
+  podTemplate:
+    spec:
+      volumes:
+        - name: elasticsearch-certs
+          secret:
+            secretName:  {{ .Values.elasticsearchCertsSecret }}
+      containers:
+        - name: kibana
+          volumeMounts:
+            - name: elasticsearch-certs
+              mountPath: /etc/certs
+              readOnly: true   
+  {{- end }}
