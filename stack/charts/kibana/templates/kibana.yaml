@@ -5,25 +5,25 @@ metadata:
 spec:
   version: {{ .Values.version }}
   count: {{ .Values.replicas }}
-  {{- if .Values.elasticsearchManagedbyECK.enabled }}
+  {{- if .Values.elasticsearch.managedbyeck }}
   elasticsearchRef:
-    name: {{ .Values.elasticsearchName }}
-    namespace: {{ .Values.elasticsearchNamespace }}
+    name: {{ .Values.elasticsearch.name }}
+    namespace: {{ .Values.elasticsearch.namespace }}
   {{ else }}
   config:
     elasticsearch.hosts:
-      - {{ .Values.elasticsearchEndpoint }}
+      - {{ .Values.elasticsearch.endpoint }}
     elasticsearch.username: elastic
   secureSettings:
-    - secretName: {{ .Values.kibanaSecretElasticsearchCredentials }}
+    - secretName: {{ .Values.elasticsearch.kibana.secretcredentials }}
   {{- end }}
-  {{- if .Values.ElasticsearchSelfCertificate.enabled }}
+  {{- if .Values.elasticsearch.certificate.enabled }}
   podTemplate:
     spec:
       volumes:
         - name: elasticsearch-certs
           secret:
-            secretName:  {{ .Values.elasticsearchCertsSecret }}
+            secretName:  {{ .Values.elasticsearch.certs.secret }}
       containers:
         - name: kibana
           volumeMounts:
@@ -31,3 +31,9 @@ spec:
               mountPath: /etc/certs
               readOnly: true   
   {{- end }}
+  {{- if .Values.fleet.enabled }}
+  config:
+    xpack.fleet.agents.elasticsearch.host: {{ .Values.fleet.agents.hosts.elasticsearchhost }}
+    xpack.fleet.agents.fleet_server.hosts: [{{ .Values.fleet.agents.hosts.fleetserverhost }}]
+  {{- end }}
+

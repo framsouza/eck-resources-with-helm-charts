@@ -52,11 +52,23 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{/*
 Create the name of the service account to use
-*/}}
-{{- define "fleet-server.serviceAccountName" -}}
+{{- define "fleet-server.serviceAccount" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "fleet-server.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+*/}}
+
+{{/*
+Use the fullname if the serviceAccount value is not set
+*/}}
+{{- define "fleet-server.serviceAccount" -}}
+{{- if .Values.serviceAccount }}
+{{- .Values.serviceAccount -}}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}

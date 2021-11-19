@@ -1,0 +1,20 @@
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata:
+  name: {{ template "fleet-server.name" . }}
+spec:
+  version: {{ .Values.version }}
+  elasticsearchRefs:
+  - name: {{ .Values.references.elasticsearch.name }}
+  kibanaRef:
+    name: {{ .Values.references.kibana.name }}
+  mode: fleet
+  fleetServerEnabled: true
+  deployment:
+    replicas: {{ .Values.replicas }}
+    podTemplate:
+      spec:
+        serviceAccountName: {{ template "fleet-server.serviceAccount" . }}
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0

@@ -1,4 +1,4 @@
-version: 7.15.1
+version: 7.15.2
 clusterName: elasticsearch
 
 nameOverride: ""
