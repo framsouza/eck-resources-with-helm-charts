@@ -1,5 +1,4 @@
 # eck-resources-with-helm-charts
-_(WIP)_
 
 This guide will guide you through how to spin up ECK resources via helm charts.
 
@@ -22,5 +21,8 @@ If you decide to spin up only Kibana, you should run:
 
 _NOTES_: If you are using data dedicated nodes, make sure to also enable the dedicated master nodes.
 If you don't want to use dedicated nodes, what will be triggered is an elasticsearch container which contains all the roles (master,data,ml,transform,ingest)
+
+You can also use this chart to deploy Fleet Server and connect it to your stack, run the following:
+- `helm install <CHARTNAME> ./fleet-server`
 
 Happy Helming!
