@@ -15,6 +15,7 @@ Let's assume you want to spin up the stack, you should run the following:
 
 In case you want to deploy only Elasticsearch:
 - `helm install <CHARTNAME> ./stack/charts/elasticsearch`
+
 If you decide to spin up only Kibana, you should run:
 - `helm install <CHARTNAME> ./stack/charts/kibana`
 
