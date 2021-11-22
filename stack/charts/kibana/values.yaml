@@ -6,6 +6,10 @@ kibanaName: kibana
 nameOverride: ""
 fullnameOverride: ""
 
+kubernetes:
+  integration:
+    enabled: true
+
 elasticsearch:
   ### If you are running Elasticsearch with ECK, keep this enabled, otherwise fill up the `kibanaSecretElasticsearchCredentials` & `elasticsearchEndpoint`
   managedbyeck: true
