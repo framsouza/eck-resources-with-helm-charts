@@ -26,4 +26,4 @@ fleet:
   agents:
     hosts:
       elasticsearchhost: "https://elasticsearch-es-http.default.svc:9200"
-      fleetserverhost: "https://fleet-server-agent-http.default.svc:8200"
+      fleetserverhost: "https://fleet-server-agent-http.default.svc:8220"

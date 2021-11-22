@@ -1,0 +1,64 @@
+version: 7.15.2
+
+references:
+  kibana: kibana
+  fleetserver: fleet-server
+
+managedServiceAccount: true
+serviceAccount: ""
+
+clusterRoleRules:
+  - apiGroups: [""]
+    resources:
+    - pods
+    - nodes
+    - namespaces
+    - events
+    - services
+    - configmaps
+    verbs:
+    - get
+    - watch
+    - list
+  - apiGroups: ["coordination.k8s.io"]
+    resources:
+    - leases
+    verbs:
+    - get
+    - create
+    - update
+  - nonResourceURLs:
+    - "/metrics"
+    verbs:
+    - get
+  - apiGroups: ["extensions"]
+    resources:
+      - replicasets
+    verbs: 
+    - "get"
+    - "list"
+    - "watch"
+  - apiGroups:
+    - "apps"
+    resources:
+    - statefulsets
+    - deployments
+    - replicasets
+    verbs:
+    - "get"
+    - "list"
+    - "watch"
+  - apiGroups:
+    - ""
+    resources:
+    - nodes/stats
+    verbs:
+    - get
+  - apiGroups:
+    - "batch"
+    resources:
+    - jobs
+    verbs:
+    - "get"
+    - "list"
+    - "watch"
