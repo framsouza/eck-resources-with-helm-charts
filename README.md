@@ -4,6 +4,8 @@ If you want a solution where you can run only 4 commands and have your kubernete
 Here we will use helm to spin up Elastic Stack on ECK(Elastic on Kubernetes), with automatically Kubernetes observability.
 We are going to run only 4 commands and we will have Elasticsearch, Kibana, Fleet & Elastic Agents (with System & Metrics of Kubernetes enabled).
 Once you follow this guide, at the end you can access Kibana and quickly check your Kubernetes healthy, as the image below:
+<img width="1433" alt="Screenshot 2021-11-22 at 16 00 46" src="https://user-images.githubusercontent.com/16880741/142890755-6664c638-6fb1-4b67-bf7c-8927e9155158.png">
+
 
 This page will give a generic way on how to set up ECK resources via helm. Keep in mind that you should adjust/add chart values that are relevant for your use case.
 
