@@ -1,4 +1,4 @@
-version: 7.15.2
+version: 7.16.2
 
 replicas: 1
 kibanaName: kibana

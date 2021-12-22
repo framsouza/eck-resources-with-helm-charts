@@ -1,11 +1,11 @@
-version: 7.15.2
+version: 7.16.2
 clusterName: elasticsearch
 
 nameOverride: ""
 fullnameOverride: ""
 
 # If you don't enabled any dedicated node, it will spin up nodes that contains all the roles
-replicasDefault: 1
+replicasDefault: 3
 
 memory:
   requests: 2Gi
